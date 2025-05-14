@@ -13,7 +13,7 @@ public interface StudentService {
     public Student findByEmail(String email);
 
 
-    public Student deleteStudent(String email);
+    public void  deleteStudent(String email);
 
     Student updateStudent(Student s);
 }

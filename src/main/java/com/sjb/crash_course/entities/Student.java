@@ -1,23 +1,38 @@
 package com.sjb.crash_course.entities;
 
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
+@Entity
+@Table(name = "student")
 public class Student {
 
-
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String firstName;
 
     private String lastName;
 
+
     private LocalDate dob;
+
 
     private String email;
 
     private int age;
+
+    // Getters and Setters
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -47,28 +62,32 @@ public class Student {
         return dob;
     }
 
+    // Ensure the date format is correctly parsed if you're passing it as a string
     public void setDob(String dob) {
         this.dob = LocalDate.parse(dob);
+        calculateAge();
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    private void calculateAge() {
+        if (dob != null) {
+            this.age = Period.between(dob, LocalDate.now()).getYears();
+        }
     }
 
-    public Student() {
+    // Default constructor
+    public Student() {}
 
-    }
-
-    public Student(String firstName, String lastName, LocalDate dob, String email, int age) {
+    // Parameterized constructor
+    public Student(Integer id, String firstName, String lastName, LocalDate dob, String email, int age) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.email = email;
         this.age = age;
     }
-
 }

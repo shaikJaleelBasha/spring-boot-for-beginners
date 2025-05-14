@@ -32,10 +32,10 @@ public class StudentImpleService implements StudentService {
     }
 
     @Override
-    public Student deleteStudent(String email) {
+    public void deleteStudent(String email) {
 
         this.studentRepository.deleteStudent(email);
-        return null;
+
     }
 
     @Override

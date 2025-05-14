@@ -2,6 +2,7 @@ package com.sjb.crash_course.controllers;
 
 
 import com.sjb.crash_course.entities.Student;
+import com.sjb.crash_course.service.DbStudentService;
 import com.sjb.crash_course.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,19 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class MyController {
 
-    private final StudentService studentService;
+//    private final StudentService studentService;
+//        public MyController(StudentService studentService){
+//        this.studentService = studentService;
+//    }
+
+    private final DbStudentService studentService;
 
     @Autowired
-    public MyController(StudentService studentService){
+    public  MyController(DbStudentService studentService){
         this.studentService = studentService;
     }
+
+
 
     @GetMapping("/")
     public List<Student> findAllStudents(){
@@ -39,8 +47,8 @@ public class MyController {
 
 
     @DeleteMapping("/{email}")
-    public Student  deleteStudent(@PathVariable("email") String email){
-       return studentService.deleteStudent(email);
+    public void   deleteStudent(@PathVariable("email") String email){
+        studentService.deleteStudent(email);
     }
 
 
